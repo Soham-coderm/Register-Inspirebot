@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Signup Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: white;
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .form-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-header h2 {
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+        }
+        .form-group input:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+        }
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .toggle-form {
+            text-align: center;
+            margin-top: 15px;
+        }
+        .toggle-form a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .error {
+            color: red;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-header">
+            <h2 id="form-title">Login</h2>
+        </div>
+        <form id="auth-form">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    required 
+                    placeholder="Enter your email"
+                >
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    required 
+                    placeholder="Enter your password"
+                >
+            </div>
+            <div id="error-message" class="error"></div>
+            <button type="submit" class="btn" id="submit-btn">Login</button>
+            <div class="toggle-form">
+                <a href="#" id="toggle-link">Need an account? Sign Up</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // DOM Elements
+        const form = document.getElementById('auth-form');
+        const formTitle = document.getElementById('form-title');
+        const submitBtn = document.getElementById('submit-btn');
+        const toggleLink = document.getElementById('toggle-link');
+        const errorMessage = document.getElementById('error-message');
+
+        // State Variables
+        let isLoginMode = true;
+
+        // Toggle Form Mode
+        toggleLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            isLoginMode = !isLoginMode;
+
+            if (isLoginMode) {
+                formTitle.textContent = 'Login';
+                submitBtn.textContent = 'Login';
+                toggleLink.textContent = 'Need an account? Sign Up';
+            } else {
+                formTitle.textContent = 'Sign Up';
+                submitBtn.textContent = 'Sign Up';
+                toggleLink.textContent = 'Already have an account? Login';
+            }
+            // Clear any previous error messages
+            errorMessage.textContent = '';
+        });
+
+        // Form Submission Handler
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form values
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Basic Validation
+            if (!email || !password) {
+                errorMessage.textContent = 'Please enter both email and password';
+                return;
+            }
+
+            // Password strength check (optional)
+            if (password.length < 6) {
+                errorMessage.textContent = 'Password must be at least 6 characters long';
+                return;
+            }
+
+            // Clear previous error
+            errorMessage.textContent = '';
+
+            // Simulate Authentication (Replace with actual authentication logic)
+            try {
+                if (isLoginMode) {
+                    console.log('Login attempt:', { email, password });
+                    // Add login logic here
+                } else {
+                    console.log('Signup attempt:', { email, password });
+                    // Add signup logic here
+                }
+            } catch (error) {
+                errorMessage.textContent = error.message || 'Authentication failed';
+            }
+        });
+    </script>
+</body>
+</html>
